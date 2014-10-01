@@ -27,14 +27,31 @@ Circle.prototype.createCircle = function(){
 		{cx: this.cx,
 		 cy: this.cy,
 		 radius: this.radius,
-		 id: 'circle_'+this.counter,
-		 style: "fill: black"
+		 id: 'circle_'+this.counter
 		});
 
 	this.circles['circle_'+this.counter] = { radius: this.radius, 
 									r: color.red,//parseInt(Math.random()*255),
 									g: color.green,//parseInt(Math.random()*255),
 									b: color.blue,//parseInt(Math.random()*255),
+									update: this.update};
+	this.counter++;
+	document.getElementById('svg').appendChild(circle);
+	return this.counter;
+}
+Circle.prototype.createCircle2 = function(red,green,blue){
+	var circle = this.makeSVG('circle',
+		{cx: this.cx,
+		 cy: this.cy,
+		 radius: this.radius,
+		 id: 'circle_'+this.counter,
+		 style: "fill: black"
+		});
+
+	this.circles['circle_'+this.counter] = { radius: this.radius, 
+									r: red,//parseInt(Math.random()*255),
+									g: green,//parseInt(Math.random()*255),
+									b: blue,//parseInt(Math.random()*255),
 									update: this.update};
 	this.counter++;
 	document.getElementById('svg').appendChild(circle);
@@ -67,7 +84,7 @@ Circle.prototype.updateCircle = function(){
 
 	var mouseState = false;
 	document.onmousedown= function(e){
-			mouseState = true
+		mouseState = true
 	}
 	document.onmouseup= function(e){
 		mouseState = false
@@ -77,7 +94,7 @@ Circle.prototype.updateCircle = function(){
 		var circle = new Circle(f.x-10, f.y-105, size, true, counter);
 		counter = circle.createCircle();
 		circle.updateCircle();
-		io.emit("draw", {x: f.x, y: f.y, size: size, color: color});
+		io.emit("draw", {x: f.x, y: f.y, size: size, color: color}, room_id);
 	}
 	function mainLoop(f)
 	{
