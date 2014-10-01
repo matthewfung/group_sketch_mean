@@ -9,14 +9,12 @@ module.exports = function Routes(app, io){
 
   io.on("connection", function(socket){
     socket.on("ready", function(person, id){
-    	console.log(id);
+    	console.log(person);
     	socket.join(id);
-      console.log('sefsef');
       	io.to(id).emit('broadcast', person);
       });
     socket.on("draw", function(options, id){
-    	console.log("Draw is being called", room_id);
-    	io.to(id).emit("client_draw", options)
+    	io.to(id).emit("clientDraw", options)
     })
 	});
 }
