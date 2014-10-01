@@ -1,0 +1,52 @@
+#register, #login{
+	text-align: center;
+	border: 2px solid black;
+	border-radius: 15px;
+	margin: 30px;
+	width: 500px;
+	padding: 50px;
+}
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#steps {
+	margin-top: 15px;
+}
+
+.step {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+#description {
+	width: 300px;
+	display: inline-block;
+	margin-top: 0px;
+}
+
+#new-room{
+	background-color: red;
+	color: white;
+	width: 150px;
+	height: 50px;
+	margin-right: 50px;
+	vertical-align: top;
+	float: right;
+}
+
+h3 {
+	text-align: center;
+}
+table{
+	text-align: center;
+	padding: 20px 80px 20px 80px;
+}
+#login-table{
+	padding: 20px 160px 20px 160px;
+}

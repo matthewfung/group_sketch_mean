@@ -1,0 +1,66 @@
+h3 {
+	display: inline-block;
+	border: 1px dashed black;
+	border-radius: 5px;
+	width: 400px;
+	margin: 0px;
+	padding: 10px 5px;
+}
+
+.dot {
+	display: inline-block;
+	border: 1px solid black;
+	border-radius: 3px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+
+label {
+	display: inline-block;
+}
+
+.color {
+	vertical-align: middle;
+	display: inline-block;
+	background-color: blue;
+	width: 20px;
+	height: 15px;
+	margin-left: 5px;
+
+}
+#black{
+	background-color: black;
+}
+#blue {
+	background-color: blue;
+}
+#red{
+	background-color: red;
+}
+#green{
+	background-color: green;
+}
+
+#eraser {
+	background-color: black;
+	color: white;
+	padding: 5px;
+}
+
+#invite {
+	margin: 0px 30px;
+	display: inline-block;
+	width: 200px
+}
+
+#bar {
+	margin: 10px 0px;
+}
+
+#main {
+	width: 700px;
+	height: 500px;
+	border: 2px solid black;
+	border-radius: 3px;
+}

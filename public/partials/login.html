@@ -1,0 +1,30 @@
+<div ng-app='myApp'>	
+	 <div id = 'container' ng-controller="MenuController">
+        <div id="login">
+            <h1> Login </h1>
+            <table id="login-table">
+                <tr>
+                    <td><input type="email" ng-model="login.email" placeholder="Enter your email"></td>
+                </tr>
+                <tr>
+                    <td><input type="password" ng-model="login.password" placeholder="Enter your password"></td>
+                </tr>
+            </table>
+            <button ng-click = 'loginUser()'> Login </button>
+        </div> 
+        <div id="register">
+            <h1>Register</h1>
+            <table>
+                <tr>
+                    <td> <input type="text" ng-model="new_user.name" placeholder="Enter your name"></td>
+                    <td><input type="password" ng-model="new_user.password" placeholder="Enter a password"></td>
+                </tr>
+                <tr>
+                	<td><input type="email" ng-model="new_user.email" placeholder="Enter your email"></td>            
+                    <td> <input type="password" ng-model="new_user.confirm" placeholder="Confirm your password"></td>
+                </tr>
+            </table>
+            <button ng-click ='addUser()'> Register! </button>
+        </div>        
+    </div>
+</div>

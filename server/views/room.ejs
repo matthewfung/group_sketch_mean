@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.min.js"></script>
+	<script type="text/javascript" src="/javascripts/app.js"></script>
+    <script type="text/javascript" src="/javascripts/controllers.js"></script>
+    <script type="text/javascript" src="/javascripts/factories.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/room.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var room_id = <%= id%>
+		io = io.connect();
+		name = prompt("What is your name");
+
+		io.emit("ready", name, <%= id %>);
+		io.on("broadcast", function(data){
+			console.log(data);
+		});
+
+		io.emit('draw')
+
+
+
+	</script>
+	<script type="text/javascript" src="/javascripts/draw.js"></script>
+</head>
+<body ng-app="myApp">
+	<div id = 'container' ng-controller="RoomController">
+		<h3>main idea</h3>
+		<p id = 'invite'>
+			Invite others to join the room:
+			groupchat.com/room/<%= id%>
+		</p>
+		<div id = 'bar'>
+			<label>Size
+				<div class = 'dot' ng-click="changeSize(5)">
+					o
+				</div>
+
+				<div class = 'dot' ng-click="changeSize(15)">
+					o
+				</div>
+
+				<div class = 'dot' ng-click="changeSize(25)">
+					o
+				</div>
+			</label>
+			<label>color
+				<div class = 'color' id = "black" ng-click= "changeColor(0,0,0)">
+				</div>
+
+				<div class = 'color' id = "blue" ng-click= "changeColor(0,0,255)" >
+					
+				</div>
+
+				<div class = 'color' id = "red" ng-click= "changeColor(255,0,0)">
+					
+				</div>
+				<div class = 'color' id = "green" ng-click= "changeColor(0,255,0)">
+					
+				</div>
+			</label>
+			<button id = 'eraser' ng-click= "changeColor(255,255,255)">eraser</button>
+		</div>
+		<svg id="svg" xmlns="http://www.w3.org/2000/svg" style = "border: 1px solid black; width: 800px; height: 500px;"></svg>
+	</div>
+
+
+</body>
+</html>

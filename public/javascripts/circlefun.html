@@ -1,0 +1,118 @@
+<html>
+<head>
+	<title>Fun Circles</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<style type="text/css">
+	body {
+		background-color:black;
+	}
+	#svg{
+		width: 800px;
+		height: 500px;
+	}
+	</style>
+</head>
+<body>
+	<svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+	<script>
+		var counter = 1;
+		function Circle(x,y,r,u,c){
+			this.circles = {};
+			this.cx = x;
+			this.cy = y;
+			this.radius = r;
+			this.update = u;
+			this.counter=c;
+		}
+
+		Circle.prototype.makeSVG = function(tag,attrs){
+			var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+			for(var k in attrs){
+				el.setAttribute(k, attrs[k]);
+			}
+			return el;
+		}
+		Circle.prototype.createCircle = function(){
+			var circle = this.makeSVG('circle',
+				{cx: this.cx,
+				 cy: this.cy,
+				 radius: this.radius,
+				 id: 'circle_'+this.counter,
+				 style: "fill: white"
+				});
+
+			this.circles['circle_'+this.counter] = { radius: this.radius, 
+											r: 255,//parseInt(Math.random()*255),
+											g: 255,//parseInt(Math.random()*255),
+											b: 255,//parseInt(Math.random()*255),
+											update: this.update};
+			this.counter++;
+			document.getElementById('svg').appendChild(circle);
+			return this.counter;
+		}
+
+		Circle.prototype.updateCircle = function(){
+				for(circle in this.circles)
+				{
+					var el = document.getElementById(circle);
+					if(this.circles[circle].update){
+						var r = 255;//parseInt(Math.random()*255);
+						var g = 255;//parseInt(Math.random()*255);
+						var b = 255;//parseInt(Math.random()*255);
+						this.circles[circle].radius = this.circles[circle].radius+1;
+
+						
+						el.setAttribute("r", this.circles[circle].radius);
+						el.setAttribute("style", "fill: rgb("+this.circles[circle].r+","+this.circles[circle].g+","+this.circles[circle].b+"); ");
+
+				
+						if(this.circles[circle].radius > 80)
+						{
+							document.getElementById('svg').removeChild(el);
+							delete this.circles[circle];
+						}
+					}
+				}
+		}		
+			function randomInt(min, max){
+				return Math.floor(Math.random()*(max-min + 1))+min;
+			}
+
+			var mouseState = false;
+			document.onmousedown= function(e){
+					mouseState = true
+			}
+			document.onmouseup= function(e){
+				mouseState = false
+			}
+
+			document.onclick = function(e){
+				mainLoop(e);
+			}
+			function mainLoop(f)
+			    {
+
+		    	var circle = new Circle(f.x, f.y, 1, true, counter);
+				counter = circle.createCircle();
+				circle.updateCircle();
+
+			    }
+			document.onmousemove = function(e){
+				if(mouseState) {
+				setInterval(mainLoop(e), 4);
+				}
+
+			}
+				
+			
+
+
+			
+		
+
+		
+	</script>
+
+</body>
+</html>
