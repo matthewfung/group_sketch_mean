@@ -6,24 +6,40 @@ module.exports = {
   res.render('./../server/views/index', {title:'Welcome Page'});
  },
  create: function(req, res){
-  var a = new User(req.body);
-  a.save(function(err){
-   if(err){
-    res.send(JSON.stringify(err));
-   }
-   else
-   {
-    res.send('success');
-   }
-  });
+  console.log(req.body);
+  if(req.body.password !== req.body.confirm){
+    res.send('Passwords must match');
+  } else {
+    var a = new User(req.body);
+    a.save(function(err){
+     if(err){
+      res.send(JSON.stringify(err));
+     }
+     else
+     {
+      res.send('success');
+     }
+    });
+  }
  },
  login: function(req, res){
-  User.findOne({ 'email': req.body.email, 'password' : req.body.password }, function(err, result){
+  User.findOne({ 'email': req.body.email}, function(err, result){
     if(err){
+      console.log(err);
       res.send(JSON.stringify(err));
+    } else if(result != null) {
+        User.findOne({ 'email': req.body.email, 'password' : req.body.password }, function(err, result){
+          if(err){
+            res.send(JSON.stringify(err));
+          } else if(result != null) {
+            console.log(result);
+            res.send(result);
+          } else {
+            res.send('email and password do not match');
+          }
+        });
     } else {
-    req.session.name = result.name;
-      res.redirect('/room/create');
+      res.send('email is not registered')
     }
   });
  },

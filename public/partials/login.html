@@ -1,30 +1,36 @@
-<div ng-app='myApp'>	
-	 <div id = 'container' ng-controller="MenuController">
-        <div id="login">
-            <h1> Login </h1>
-            <table id="login-table">
-                <tr>
-                    <td><input type="email" ng-model="login.email" placeholder="Enter your email"></td>
-                </tr>
-                <tr>
-                    <td><input type="password" ng-model="login.password" placeholder="Enter your password"></td>
-                </tr>
-            </table>
-            <button ng-click = 'loginUser()'> Login </button>
-        </div> 
-        <div id="register">
-            <h1>Register</h1>
-            <table>
-                <tr>
-                    <td> <input type="text" ng-model="new_user.name" placeholder="Enter your name"></td>
-                    <td><input type="password" ng-model="new_user.password" placeholder="Enter a password"></td>
-                </tr>
-                <tr>
-                	<td><input type="email" ng-model="new_user.email" placeholder="Enter your email"></td>            
-                    <td> <input type="password" ng-model="new_user.confirm" placeholder="Confirm your password"></td>
-                </tr>
-            </table>
-            <button ng-click ='addUser()'> Register! </button>
-        </div>        
+<div id = 'container' ng-controller="MenuController">
+    <div id="main">
+        <h1>Login</h1><p class = 'error' ng-bind = 'logErr'></p><p class = 'success' ng-bind = 'logSuccess'></p>
+        <form name="signin_form" novalidate ng-submit="loginUser()">
+            <div class="form-group">
+                <label >Email</label>
+                <input type="text" class="form-control"  ng-model="login.email">
+            </div>
+            <div class="form-group">
+                <label >Password</label>
+                <input type="password" class="form-control"  ng-model="login.password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <h1>Register</h1><p class = 'error' ng-bind = 'regErr'></p><p class = 'success' ng-bind = 'regSuccess'></p>
+            <form name="signup_form" class="css-form" novalidate  ng-submit="addUser()">
+            <div class="form-group">
+                <label >Name</label>
+                <input type="name" class="form-control" ng-model="new_user.name" ng-minlength= 6 ng-maxlength=20 required>
+            </div>
+            <div class="form-group">
+                <label >Email</label>
+                <input type="email" class="form-control"  ng-model="new_user.email" >
+            </div>
+            <div class="form-group">
+                <label >Password</label>
+                <input type="password" class="form-control"  ng-model="new_user.password" ng-minlength= 8 ng-maxlength=20 required>
+            </div>
+            <div class="form-group">
+                <label >Confirm</label>
+                <input type="password" class="form-control"  ng-model="new_user.confirm" ng-minlength= 8 ng-maxlength=20 required>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
     </div>
 </div>

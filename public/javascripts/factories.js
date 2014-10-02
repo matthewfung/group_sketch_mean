@@ -11,5 +11,20 @@
                 callback(output);
             });
           }
+          factory.newRoom = function(callback){
+            $http.get('/room/create').success(function(output){
+                callback(output);
+            });
+          }
           return factory;
-        });
+});
+
+myApp.factory('MyService', function(){
+  return {
+    name: ''
+    ,
+    update: function(name) {
+      this.name = name;
+    }
+  };
+});

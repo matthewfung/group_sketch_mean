@@ -1,19 +1,21 @@
+
 <html>
 <head>
 	<title></title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.min.js"></script>
 	<script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/controllers.js"></script>
     <script type="text/javascript" src="/javascripts/factories.js"></script>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/room.css">
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
-		var room_id = <%= id%>
+		var room_id = '<%= id%>';
 		console.log(room_id);
 		io = io.connect();
 		name = prompt("What is your name");
 
-		io.emit("ready", name, <%= id %>);
+		io.emit("ready", name, room_id);
 		io.on("broadcast", function(data){
 			console.log(data);
 		});
@@ -26,6 +28,7 @@
 		});
 
 	</script>
+
 	<script src="/javascripts/draw.js">
 	</script>
 

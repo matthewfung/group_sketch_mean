@@ -1,15 +1,23 @@
-#register, #login{
-	text-align: center;
-	border: 2px solid black;
+#main{
+	background-color: white;
 	border-radius: 15px;
-	margin: 30px;
+	margin: 0px auto;
 	width: 500px;
-	padding: 50px;
+	padding: 0px 50px 20px 50px;
+	border: 2px solid black;
+
+
+
 }
 body {
-  padding: 50px;
+	background-color: black;
+	margin-top: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+
+
 }
+
 
 a {
   color: #00B7FF;
@@ -40,13 +48,48 @@ a {
 	float: right;
 }
 
-h3 {
-	text-align: center;
-}
-table{
-	text-align: center;
-	padding: 20px 80px 20px 80px;
+h1 {
+	display: inline-block;
 }
 #login-table{
 	padding: 20px 160px 20px 160px;
+}
+
+ .css-form input.ng-invalid.ng-dirty {
+    /*border-color: #FA787E;*/
+    border: 2px solid #FA787E;
+  }
+
+  .css-form input.ng-valid.ng-dirty {
+    border: 2px solid #78FA89;
+  }
+p.error {
+	display: inline-block;
+	color: red;
+	margin-left: 20px;
+	margin-bottom: 0px;
+}
+
+p.success {
+	display: inline-block;
+	color: green;
+	margin-left: 20px;
+	margin-bottom: 0px;
+}
+
+#CreateRoom {
+	background-color: white;
+	margin: 190px auto;
+
+	vertical-align: top;
+	padding: 5px 20px 20px 20px;
+	width: 400px;
+	border-radius: 15px;
+	border: 2px solid black;
+	text-align: center;
+}
+
+#CreateRoom input{
+	margin: 0px auto;
+	width: 300px;
 }
