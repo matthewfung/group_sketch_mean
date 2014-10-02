@@ -3,7 +3,15 @@ var User = mongoose.model('User');
 var Room = mongoose.model('Room');
 module.exports = {
  index: function(req, res){
-  res.render('./../server/views/index', {title:'Welcome Page'});
+  //If rooms object is empty, initialize it
+    if(Object.getOwnPropertyNames(rooms).length === 0){
+       Room.find({}, function(err, results){
+          for(room in results){
+             rooms[results[room]._id] = []; //Empty array because initially there are no users
+          }
+       })
+    } 
+   res.render('./../server/views/index', {title:'Welcome Page'});
  },
  create: function(req, res){
   var a = new User(req.body);
@@ -28,21 +36,34 @@ module.exports = {
   });
  },
  newRoom: function(req,res){
+  //Add room to db
   var room = new Room({'name': 'choose name'});
   room.save(function(err){
     if(err){
       res.send(JSON.stringify(err));
     } else {
-      Room.find({}).sort({'created_at': -1}).limit(1).exec(function(err, result){
+      Room.find({}).sort({'created': 1}).limit(1).exec(function(err, result){
+        rooms[result[0]._id] = [];
         res.send(result[0]._id);
       });
     } 
   });
  },
- room: function(req,res){  
-  console.log('controller', req.params.id);
-  res.render('./../server/views/room', {'id': req.params.id});
-
-
+ room: function(req,res){ 
+    console.log("Getting to room route");
+    //If rooms object is empty, initialize it
+    if(Object.getOwnPropertyNames(rooms).length === 0){
+       Room.find({}, function(err, results){
+          for(room in results){
+             rooms[results[room]._id] = []; //Empty array because initially there are no users
+          }
+       })
+    } 
+    res.render('./../server/views/room', {'id': req.params.id});
+ },
+ get_users: function(req,res){
+    console.log("Getting users from room "+ req.params.room_id, rooms[req.params.room_id]);
+    var id = req.params.room_id;
+    res.send(rooms[id]);
  }
 }

@@ -13,7 +13,7 @@ var path = require('path')
     }
 module.exports = {
   development: {
-    db: 'mongodb://localhost/test',
+    db: 'mongodb://localhost/group_sketch',
     root: rootPath,
     notifier: notifier,
     app: {

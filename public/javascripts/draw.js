@@ -94,14 +94,14 @@ Circle.prototype.updateCircle = function(){
 		var circle = new Circle(f.x-10, f.y-105, size, true, counter);
 		counter = circle.createCircle();
 		circle.updateCircle();
-		io.emit("draw", {x: f.x, y: f.y, size: size, color: color}, room_id);
+		ioo.emit("draw", {x: f.x, y: f.y, size: size, color: color}, room_id);
 	}
 	function mainLoop(f)
 	{
     	var circle = new Circle(f.x-10, f.y-105, size, true, counter);
 		counter = circle.createCircle();
 		circle.updateCircle();
-		io.emit("draw", {x: f.x, y: f.y, size: size, color: color},  room_id);
+		ioo.emit("draw", {x: f.x, y: f.y, size: size, color: color},  room_id);
 	}
 	document.onmousemove = function(e){
 		if(mouseState) {
