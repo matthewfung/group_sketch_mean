@@ -35,7 +35,8 @@ myApp.controller('MenuController', function($scope, $location, $window, UserFact
       });
     }
     $scope.createRoom = function(){
-      UserFactory.newRoom(function(output){
+      UserFactory.roomName = $scope.room.name;
+      UserFactory.newRoom($scope.room, function(output){
         $scope.output = output.substring(1,output.length-1);
         $window.location.href = '/room/'+ $scope.output + '/';
       });  
@@ -52,12 +53,13 @@ myApp.controller('RoomController', function($scope, UserFactory, $window){
       });
 
      });
+     $scope.cursorStyle = {};
+     $scope.cursorName = "";
 
     ioo.emit('draw');
     ioo.on('clientDraw', function(options){
       var circle = new Circle(options.x-10, options.y-105, options.size, true, counter);
       counter = circle.createCircle2(options.color.red, options.color.green, options.color.blue);
-      circle.updateCircle();
     });
     ioo.on('delete_user', function(name){
       console.log("Splicing", name, $scope.clients);
@@ -70,6 +72,19 @@ myApp.controller('RoomController', function($scope, UserFactory, $window){
        $scope.messages.push(msg);
        $scope.$apply();
     });
+    ioo.on('eraseAll', function(){
+      var svg = document.getElementById('svg');
+        while(svg.firstChild){
+           svg.removeChild(svg.firstChild);
+        }
+    });
+    ioo.on('mouseCursor', function(name, x,y, color){
+       $scope.cursorStyle = {"top": (y+5)+'px', "left": (x+5)+'px'}; 
+       $scope.cursorName = name;
+       // console.log("MouseCursor", $scope.cursorStyle);
+       $scope.$apply();
+
+    });
 
      $scope.sendMessage = function(){
        ioo.emit("message", $scope.typed, $window.name);
@@ -78,6 +93,9 @@ myApp.controller('RoomController', function($scope, UserFactory, $window){
           color.red = r;
           color.green = g;
           color.blue = b;
+      }
+      $scope.eraseAll = function(){
+        ioo.emit("eraseAll");
       }
       $scope.changeSize = function(s){
           size = s;

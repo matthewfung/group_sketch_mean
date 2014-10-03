@@ -21,8 +21,9 @@
         })
       }
 
-      factory.newRoom = function(callback){
-        $http.get('/room/create').success(function(output){
+      factory.newRoom = function(room, callback){
+
+        $http.post('/room/create', room).success(function(output){
             callback(output);
         });
       }
@@ -31,8 +32,8 @@
 
 myApp.factory('MyService', function(){
   return {
-    name: ''
-    ,
+    name: '',
+ 
     update: function(name) {
       this.name = name;
     }

@@ -53,7 +53,7 @@ module.exports = {
  },
  newRoom: function(req,res){
   //Add room to db
-  var room = new Room({'name': 'choose name'});
+  var room = new Room({'name': req.body.name});
   room.save(function(err){
     if(err){
       res.send(JSON.stringify(err));
@@ -75,7 +75,10 @@ module.exports = {
           }
        })
     } 
-    res.render('./../server/views/room', {'id': req.params.id});
+    Room.findOne({"_id": req.params.id}, function(err, result){
+       if(result)
+        res.render('./../server/views/room', {'id': req.params.id, "room_name": result.name});
+    })
  },
  get_users: function(req,res){
     console.log("Getting users from room "+ req.params.room_id, rooms[req.params.room_id]);

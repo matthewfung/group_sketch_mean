@@ -30,13 +30,17 @@ Circle.prototype.createCircle = function(){
 		 id: 'circle_'+this.counter
 		});
 
-	this.circles['circle_'+this.counter] = { radius: this.radius, 
-									r: color.red,//parseInt(Math.random()*255),
-									g: color.green,//parseInt(Math.random()*255),
-									b: color.blue,//parseInt(Math.random()*255),
-									update: this.update};
+	options = { radius: this.radius, 
+				r: color.red,//parseInt(Math.random()*255),
+				g: color.green,//parseInt(Math.random()*255),
+			    b: color.blue//parseInt(Math.random()*255),
+				};
 	this.counter++;
 	document.getElementById('svg').appendChild(circle);
+
+	var el = document.getElementById(circle.id);
+	el.setAttribute("r", options.radius);
+	el.setAttribute("style", "fill: rgb("+options.r+","+options.g+","+options.b+"); ");
 	return this.counter;
 }
 Circle.prototype.createCircle2 = function(red,green,blue){
@@ -48,36 +52,19 @@ Circle.prototype.createCircle2 = function(red,green,blue){
 		 style: "fill: black"
 		});
 
-	this.circles['circle_'+this.counter] = { radius: this.radius, 
-									r: red,//parseInt(Math.random()*255),
-									g: green,//parseInt(Math.random()*255),
-									b: blue,//parseInt(Math.random()*255),
-									update: this.update};
+	options = { radius: this.radius, 
+				r: red,//parseInt(Math.random()*255),
+				g: green,//parseInt(Math.random()*255),
+			    b: blue//parseInt(Math.random()*255),
+				};
 	this.counter++;
 	document.getElementById('svg').appendChild(circle);
+	var el = document.getElementById(circle.id);
+	el.setAttribute("r", options.radius);
+	el.setAttribute("style", "fill: rgb("+options.r+","+options.g+","+options.b+"); ");
 	return this.counter;
 }
 
-Circle.prototype.updateCircle = function(){
-		for(circle in this.circles)
-		{
-			var el = document.getElementById(circle);
-			if(this.circles[circle].update){
-				this.circles[circle].radius = this.circles[circle].radius+1;
-
-				
-				el.setAttribute("r", this.circles[circle].radius);
-				el.setAttribute("style", "fill: rgb("+this.circles[circle].r+","+this.circles[circle].g+","+this.circles[circle].b+"); ");
-
-		
-				if(this.circles[circle].radius > 80)
-				{
-					document.getElementById('svg').removeChild(el);
-					delete this.circles[circle];
-				}
-			}
-		}
-}		
 	function randomInt(min, max){
 		return Math.floor(Math.random()*(max-min + 1))+min;
 	}
@@ -93,19 +80,18 @@ Circle.prototype.updateCircle = function(){
 	document.onclick = function(f){
 		var circle = new Circle(f.x-10, f.y-105, size, true, counter);
 		counter = circle.createCircle();
-		circle.updateCircle();
 		ioo.emit("draw", {x: f.x, y: f.y, size: size, color: color}, room_id);
 	}
-	function mainLoop(f)
+	function draw(f)
 	{
     	var circle = new Circle(f.x-10, f.y-105, size, true, counter);
 		counter = circle.createCircle();
-		circle.updateCircle();
 		ioo.emit("draw", {x: f.x, y: f.y, size: size, color: color},  room_id);
 	}
 	document.onmousemove = function(e){
+		ioo.emit("mouseCursor", name, e.x, e.y, color);
 		if(mouseState) {
-			setInterval(mainLoop(e), 4);
+			draw(e);
 		}
 
 	}
